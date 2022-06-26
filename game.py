@@ -41,7 +41,14 @@ class Game:
         
     def play_hand(self, plr, dealer_card=None):
         plr.print_hand()
-        while plr.pick_action(dealer_card) not in ['B', 'S']:
+        action = plr.pick_action(dealer_card)
+        while action not in ['B', 'S', 'D']:
+            plr.hand.append(self.deck.draw())
+            plr.print_hand()
+            action = plr.pick_action(dealer_card)
+        if action == 'D':
+            plr.add_funds(plr.bet)
+            plr.set_bet(plr.bet * 2)
             plr.hand.append(self.deck.draw())
             plr.print_hand()
 
@@ -58,7 +65,7 @@ class Game:
         self.deal_cards()
         logging.debug('Dealer card: {}'.format(self.dealer.hand[0]))
         for plr in self.players:
-            logging.debug("Player {}".format(plr.get_id()), end="")
+            logging.debug("Player {}".format(plr.get_id()))
             plr.print_hand()
         
         self.evaluate_blackjacks()

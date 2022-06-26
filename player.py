@@ -53,25 +53,34 @@ class Player:
         # return which action to take based on the current hand and ruleset
         action = None
         total, soft_aces = self.evaluate_hand()
+        dlr_total = constants.CARD_VALUES[dealer_card]
         
         if total > 21:
             action = 'B'
         # handle hard totals
         elif soft_aces == 0:
-            if total >= 17:
+            if total >= 17 or \
+            (total >= 13 and dlr_total <= 6) or \
+            (total == 12 and dlr_total in [4, 5, 6]):
                 action = 'S'
-            elif total >= 13 and constants.CARD_VALUES[dealer_card] <= 6:
-                action = 'S'
-            elif total == 12 and constants.CARD_VALUES[dealer_card] in [4, 5, 6]:
-                action = 'S'
+            elif total == 11 or \
+            (total == 10 and dlr_total < 10) or \
+            (total == 9 and dlr_total in [3, 4, 5, 6]):
+                action = 'D'
             else:
                 action = 'H'
         # handle soft totals
         else:
-            if total >= 19:
+            if total >= 20 or \
+            (total == 19 and dlr_total != 6) or \
+            (total == 18 and dlr_total in [7, 8]):
                 action = 'S'
-            elif total >= 18 and constants.CARD_VALUES[dealer_card] <= 8:
-                action = 'S'
+            elif (total == 19 and dlr_total == 6) or \
+            (total == 18 and dlr_total <= 6) or \
+            (total == 17 and dlr_total in [3, 4, 5, 6] or \
+            (total in [15, 16] and dlr_total in [4, 5, 6]) or \
+            (total in [13, 14] and dlr_total in [5, 6])):
+                action = 'D'
             else:
                 action = 'H'
         logging.debug(action)
