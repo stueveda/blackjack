@@ -1,4 +1,6 @@
-import constants, dealer, deck, logging, player
+import logging
+import blackjack.constants as constants, blackjack.dealer as dealer, \
+       blackjack.deck as deck, blackjack.player as player
 
 class Game:
     def __init__(self, num_players, num_decks):
@@ -27,7 +29,7 @@ class Game:
             logging.debug('dealer blackjack')
         for plr in self.players:
             if plr.has_blackjack():
-                logging.debug('player blackjack')
+                logging.debug('player {} blackjack'.format(plr.get_id()))
                 if not dealer_blackjack:
                     plr.add_funds(plr.bet * 2.5)
                     plr.wins += 1

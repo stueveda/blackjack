@@ -1,0 +1,7 @@
+[project]
+name = "blackjack"
+version = "0.0.1"
+description = "A Monte Carlo Simulator for Blackjack"
+authors = [
+    {name = "Dan Stueve", email = "stueveda@gmail.com"},
+]

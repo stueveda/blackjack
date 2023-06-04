@@ -1,4 +1,5 @@
-import constants, random
+import random
+import blackjack.constants as constants
 
 class Deck:
     def __init__(self):

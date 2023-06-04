@@ -1,4 +1,5 @@
-import constants, logging
+import logging
+import blackjack.constants as constants
 
 class Player:
     def __init__(self, id):
@@ -12,11 +13,16 @@ class Player:
         self.pushes = 0
         self.blackjacks = 0
 
-    def has_blackjack(self):
-        return len(self.hand) == 2 and \
-            (self.hand[0] == 'A' and self.hand[1] in ['J', 'Q', 'K']) or \
-            (self.hand[0] in ['J', 'Q', 'K'] and self.hand[1] == 'A')
+    def get_id(self):
+        return self.id
 
+    def get_bet(self):
+        return self.bet
+
+    def set_bet(self, amount):
+        self.funds -= amount
+        self.bet = amount
+    
     def add_funds(self, amount):
         self.funds += amount
 
@@ -25,19 +31,20 @@ class Player:
         self.bet = 0
         self.round_resolved = False
 
-    def set_bet(self, amount):
-        self.funds -= amount
-        self.bet = amount
+    def add_card(self, card):
+        self.hand.append(card)
 
-    def get_id(self):
-        return self.id
-
-    def get_bet(self):
-        return self.bet
+    def reset_hand(self):
+        self.hand = []
     
     def print_hand(self):
         total, soft_aces = self.evaluate_hand()
         logging.debug("{} {}{}".format(self.hand, "S" * soft_aces, total))
+
+    def has_blackjack(self):
+        return len(self.hand) == 2 and \
+            (self.hand[0] == 'A' and self.hand[1] in ['10', 'J', 'Q', 'K']) or \
+            (self.hand[0] in ['10', 'J', 'Q', 'K'] and self.hand[1] == 'A')
 
     def evaluate_hand(self):
         # returns a tuple of (hand_value, # of remaining soft aces)
