@@ -3,9 +3,9 @@ import blackjack.constants as constants, blackjack.dealer as dealer, \
        blackjack.deck as deck, blackjack.player as player
 
 class Game:
-    def __init__(self, num_players, num_decks):
+    def __init__(self, players, num_decks):
         self.dealer = dealer.Dealer(0)
-        self.players = [player.Player(i + 1) for i in range(num_players)]
+        self.players = players
         self.num_decks = num_decks
         self.deck = deck.Deck()
         self.running_count = 0
@@ -109,6 +109,10 @@ class Game:
     def print_stats(self):
         print('Rounds played: {}'.format(self.round_number))
         for plr in self.players:
+            percent_wins = plr.wins / self.round_number * 100
+            percent_losses = plr.losses / self.round_number * 100
+            percent_pushes = plr.pushes / self.round_number * 100
             print('Player {} | Funds: {} | Record: {}-{}-{} | {} BJ'.format(plr.get_id(), plr.funds,
                                                                             plr.wins, plr.losses, plr.pushes,
                                                                             plr.blackjacks))
+            #print('Percentages: {} - {} - {}'.format(percent_wins, percent_losses, percent_pushes))
