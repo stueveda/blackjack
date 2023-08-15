@@ -1,5 +1,5 @@
 import logging
-import blackjack.constants as constants, player
+import blackjack.constants as constants, blackjack.player as player
 
 class Dealer(player.Player):
     
