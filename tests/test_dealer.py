@@ -42,11 +42,10 @@ if __name__ == '__main__':
     assert d.evaluate_hand() == (48, 0)
     assert d.pick_action() == 'B'
 
+    # Test Aces
     d.reset_hand()
     assert d.evaluate_hand() == (0, 0)
-    assert d.pick_action() == 'H'
-    
-    # Test Aces
+
     d.add_card("A")
     assert d.evaluate_hand() == (11, 1)
     assert d.pick_action() == 'H'
@@ -66,3 +65,10 @@ if __name__ == '__main__':
     d.add_card("K")
     assert d.evaluate_hand() == (19, 0)
     assert d.pick_action() == 'S'
+
+    # Test Soft 17
+    d.reset_hand()
+    d.add_card("6")
+    d.add_card("A")
+    assert d.evaluate_hand() == (17, 1)
+    assert d.pick_action() == 'H'
