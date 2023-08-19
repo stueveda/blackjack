@@ -1,8 +1,8 @@
 import unittest
 import blackjack.constants as constants, blackjack.dealer as dealer
 
-class TestPlayer(unittest.TestCase):
-    def test_player(self):
+class TestDealer(unittest.TestCase):
+    def test_dealer(self):
         pass
 
 if __name__ == '__main__':

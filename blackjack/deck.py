@@ -22,3 +22,6 @@ class Deck:
 
     def add_cards(self, new_cards):
         self.cards.extend(new_cards)
+
+    def __len__(self):
+        return len(self.cards)

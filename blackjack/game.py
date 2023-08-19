@@ -6,10 +6,11 @@ class Game:
     def __init__(self, players, num_decks):
         self.dealer = dealer.Dealer(0)
         self.players = players
-        self.num_decks = num_decks
-        self.deck = deck.Deck()
         self.running_count = 0
         self.round_number = 0
+        self.num_decks = num_decks
+        self.deck = deck.Deck()
+        self.refresh_deck()
 
     def refresh_deck(self):
         self.deck.empty_deck()
